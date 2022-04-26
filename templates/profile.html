@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero is-warning">
+    <div class="hero-body">
+        <article class="media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="{{url_for('static', filename=bird['User']+'.jpg')}}" alt="Image">
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                    <a href="{{url_for('profile', user=bird['User'])}}">
+                        <strong>{{bird['Name']}}</strong> 
+                        <small>@{{bird['User']}}</small> 
+                    </a>
+                  <small(Bithday:{{bird['Birthday']}})></small>
+                  <br>
+                  {{bird['Bio']}}
+              </p>
+          </div>
+          <nav class="level is-mobile">
+                    <div class="level-left">
+                      <a class="level-item button" >
+                        <span class="icon-text"> 
+                          <span class="icon">
+                          <i class="fas fa-dove"></i>
+                        </span>
+                        <span>Add friend</span>
+                      </span>
+                      </a>
+                
+                    </div>
+                </nav>
+
+                <br/>
+
+<div class="card">
+  <div class="card-header">
+    Update Profile
+  </div>
+  <div class="card-body">
+</div>
+
+	
+	
+
+
+</div>
+
+
+
+                <br>       
+                <form method="post" enctype="multipart/form-data">
+                  <input type="file" name="file">
+                  <input type="submit" value="Up load">
+                </form>
+
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="mt-6">
+{% for post in posts  %}
+<div class="box">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="{{url_for('static', filename=post['User']+'.jpg') }}" alt="Image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+             <a href="{{url_for('profile',user=post['User'])}}">
+             <strong>{{post["Name"]}}</strong> 
+             <small>@{{post["User"]}}</small>
+             
+             <br>
+                {{post["Texts"]}}
+            </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item" aria-label="like">
+              <span class="icon-text"> 
+                <span class="icon is-small">
+                <i class="fas fa-heart"></i>
+              </span>
+              
+            </span>
+            </a>
+            <a class="level-item" aria-label="like" >
+              <span class="icon-text"> 
+                <span class="icon is-small">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+              </span>
+              
+            </span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

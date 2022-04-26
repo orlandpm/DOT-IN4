@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<article class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <img src="{{url_for('static', filename=posts['Picture'])}}">
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <a href="{{url_for('profile', user=posts['User'])}}">
+            <strong>{{posts["Name"]}}</strong> <small>@{{posts["User"]}}</small> 
+          </a>
+          <small></small>
+          <br>
+          {{ posts['Text']}}
+          <br>
+          <nav class="level is-mobile">
+            <div class="level-left">
+              <a class="level-item" aria-label="like">
+                <span class="icon-text"> 
+                  <span class="icon is-small">
+                  <i class="fas fa-heart" aria-hidden="true"></i>
+                </span>
+                <span>{{posts['Likes']| count}}</span>
+              </span>
+              </a>
+              <a class="level-item" aria-label="like">
+                <span class="icon-text"> 
+                  <span class="icon is-small">
+                  <i class="fas fa-comment" aria-hidden="true"></i>
+                </span>
+                <span>{{posts['Comments']| count }}</span>
+              </span>
+              </a>
+            </div>
+          </nav>
+        </p>
+      </div>
+      {% for comment in posts['Comments'] %}
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-48x48">
+            <img src="{{url_for('static', filename=comment['Picture'])}}">
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <a href="{{url_for('profile', user=comment['User'])}}">
+                <strong>{{comment["Name"]}}</strong> <small>@{{comment["User"]}}</small> 
+              </a>
+              <small></small>{{comment["Datetime"]}}
+              <br>
+              {{ comment['Text']}}
+              <br>
+            </p>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+  
+      
+    </div>
+  </article>
+  
+ 
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="{{url_for('static', filename='lamar.jpg')}}" alt="Image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <a href="{{url_for('profile', user='lamar')}}" >
+              <strong>Lamar</strong> <small>@lamar</small>
+            </a>
+           
+            <br></p>
+            <form>
+              <div class="field">
+               
+                <div class="control">
+                  <textarea class="textarea" placeholder="New Message" rows="2"></textarea>
+                </div>
+              </div>
+            <div class="field is-grouped">
+              <div class="control">
+                <button class="button is-link">Comment</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <form action="/dashboard" method="POST" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+      
+          {{ form.name.label(class="form-label") }}
+      
+          {{ form.name(class="form-control", value=name_to_update.name) }}
+          <br/>
+      
+          {{ form.username.label(class="form-label") }}
+      
+          {{ form.username(class="form-control", value=name_to_update.username) }}
+          <br/>
+      
+          {{ form.email.label(class="form-label") }}
+      
+          {{ form.email(class="form-control", value=name_to_update.email) }}
+          <br/>
+          
+          {{ form.favorite_color.label(class="form-label") }}
+      
+          {{ form.favorite_color(class="form-control", value=name_to_update.favorite_color) }}
+          <br/>
+      
+          {{ form.about_author.label(class="form-label") }}
+      
+          <textarea name="about_author" class="form-control">{{ name_to_update.about_author }}</textarea>
+          <br/>
+      
+          {{ form.profile_pic.label(class="form-label") }}
+      
+          {{ form.profile_pic(class="form-control", value=name_to_update.profile_pic) }}
+          
+      
+          <br/>
+          
+          {{ form.submit(class="btn btn-secondary btn-sm") }}
+            
+      
+          
+      
+      
+        </form>
+      </div>
+    </article>
+  
+
+{% endblock %}

@@ -1,0 +1,15 @@
+<html>
+  
+    <body>
+        <form method="POST" action="{{url_for('login')}}">
+            <table>
+            {% for field in form %}
+                <tr>
+                    <th>{{ field.label }}</th>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endfor %} 
+            </table>
+        </form>
+    </body>
+</html>

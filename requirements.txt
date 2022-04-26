@@ -1,0 +1,5 @@
+Flask
+pyodbc
+flask-httpauth
+flask-login
+flask-wtf

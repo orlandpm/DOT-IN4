@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="box">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="{{url_for('static', filename=user+'.jpg')}}")}}" alt="Image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <a href="{{url_for('profile', user=user)}}">
+            <strong>{{Name}}</strong> <small>@{{user}}</small>
+          </a>
+            <br>
+          </p>
+            <form action="/create" method="POST">
+              <div class="field">
+                <div class="control">
+                  <textarea class="textarea" name="post-content" placeholder="New Message" rows="2"></textarea>
+                </div>
+              </div>
+
+            <div class="field is-grouped">
+              <div class="control">
+                <button class="button is-link">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </article>
+  </div>
+<p class="subtitle">My Feed</p>
+
+{% for post in posts %}
+  <div class="box post-box">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="{{url_for('static', filename=post['User']+'.jpg') }}" alt="Image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <a href="{{url_for('profile', user=post['User'])}}">
+               <strong>{{post['Name']}}</strong> <small>@{{post['User']}}</small>
+              </a>
+              {% if post['User'] == user %} 
+              (<a style="color:red;" href="{{url_for('delete_post', user=post['Id'])}}">delete</a>)
+              {% endif %}
+            <small></small> 
+            <br>
+            {{post['Texts']}}
+            </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item" aria-label="reply"> 
+                <span class="icon is-small">
+                  <i class="fas fa-reply" aria-hidden="true"></i>
+              </span> 
+            </a>
+            
+            <a class="level-item" aria-label="retweet" >
+              <span class="icon is-small"> 
+                <i class="fas fa-retweet" aria-hidden="true"></i>
+              </span> 
+            </a>
+
+            <a class="level-item comment-button" aria-label="comment" >
+              <span class="icon is-small"> 
+                <i class="fas fa-comment" aria-hidden="true"></i>
+              </span> 
+            </a>
+            
+            <a class="level-item like-button" aria-label="like"  data-postid="{{post['Id']}}">
+              <span class="icon is-small">  
+                {% if post['CurrentBirdLike'] %}
+                  <i class="fas fa-heart" aria-hidden="true"></i>
+                {% else %}
+                  <i class="far fa-heart" aria-hidden="true"></i>
+                {% endif %}
+                <span class="like-count">{{post['Likescount']}}</span>  
+              </span> 
+            </a>
+          </div>
+        </nav>
+      </div>
+    </article>
+
+    <ul class="comments">
+
+    </ul>
+  </div>
+
+  {% endfor %}
+
+{% endblock %}
